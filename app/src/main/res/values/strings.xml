@@ -3,6 +3,16 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="show_spendings_stats">Show spendings stats</string>
+    <string name="group_views_available">Views</string>
+    <string name="watch_by_categories">Watch by categories</string>
+    <string name="watch_spendings_stats">Watch stats</string>
+    <string name="group_settings">Settings</string>
+    <string name="main_menu">Main menu</string>
+    <string name="no_categories_defined">No categories defined!</string>
+    <string name="manage_categories">Manage categories</string>
 
-    <string name="action_settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_category">Add category</string>
 </resources>
