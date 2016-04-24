@@ -15,4 +15,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_category">Add category</string>
+    <string name="add_category_name">input category name</string>
+    <string name="category_added">Category added</string>
+    <string name="edit_category">Edit category</string>
+    <string name="all_categories_identifier">All</string>
+    <string name="choose_category">Choose category</string>
 </resources>

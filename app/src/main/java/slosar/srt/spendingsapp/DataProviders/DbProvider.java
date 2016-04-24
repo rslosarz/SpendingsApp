@@ -11,6 +11,7 @@ import slosar.srt.spendingsapp.DbModule.DaoMaster;
 import slosar.srt.spendingsapp.DbModule.DaoSession;
 import slosar.srt.spendingsapp.DbModule.Spending;
 import slosar.srt.spendingsapp.DbModule.SpendingDao;
+import slosar.srt.spendingsapp.Exceptions.CategoryNameExistsException;
 
 /**
  * Created by Rafal on 2016-04-23.
@@ -44,14 +45,29 @@ public class DbProvider implements IDbProvider {
     @Override
     public List<Spending> getSpendingsList(Category category) {
         SpendingDao spendingDao = getSession().getSpendingDao();
-        return spendingDao.queryBuilder()
-                .where(SpendingDao.Properties.CategoryId.eq(category.getId()))
-                .list();
+
+        if (category.getName().isEmpty()) {
+            return spendingDao.loadAll();
+        } else {
+            return spendingDao.queryBuilder()
+                    .where(SpendingDao.Properties.CategoryId.eq(category.getId()))
+                    .list();
+        }
     }
 
     @Override
-    public void addCategory(Category category) {
+    public void addCategory(Category category) throws CategoryNameExistsException {
+
         CategoryDao categoryDao = getSession().getCategoryDao();
+
+        List<Category> categoryList = categoryDao.queryBuilder()
+                .where(CategoryDao.Properties.Name.eq(category.getName()))
+                .list();
+
+        if (!categoryList.isEmpty()) {
+            throw new CategoryNameExistsException();
+        }
+
         categoryDao.insert(category);
     }
 
