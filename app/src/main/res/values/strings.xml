@@ -20,4 +20,8 @@
     <string name="edit_category">Edit category</string>
     <string name="all_categories_identifier">All</string>
     <string name="choose_category">Choose category</string>
+    <string name="add_spending">Add spending</string>
+    <string name="title_hint">Input spending title</string>
+    <string name="hint_value">Input spending value</string>
+    <string name="hint_date">Input date</string>
 </resources>

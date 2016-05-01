@@ -6,12 +6,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 import slosar.srt.spendingsapp.DataProviders.DbProvider;
 import slosar.srt.spendingsapp.DataProviders.IDbProvider;
 import slosar.srt.spendingsapp.DbModule.Category;
-import slosar.srt.spendingsapp.R;
+import slosar.srt.spendingsapp.DbModule.Spending;
 
 /**
  * Created by Rafal on 2016-04-24.
@@ -21,13 +22,14 @@ public class CategoriesViewPresenter {
     private List<Category> categoriesList;
     private CategoriesAdapter adapter;
     private String[] categoriesIdArray;
+    private IDbProvider dbProvider;
 
     public CategoriesViewPresenter(ICategoriesView view, Context context) {
         this.view = view;
 
-        IDbProvider dbProvider = new DbProvider(context);
+        dbProvider = new DbProvider(context);
         categoriesList = dbProvider.getCategoryList();
-        categoriesIdArray = getCategoriesNames(context, categoriesList);
+        categoriesIdArray = getCategoriesNames(categoriesList);
         adapter = new CategoriesAdapter(context, categoriesIdArray);
     }
 
@@ -36,21 +38,24 @@ public class CategoriesViewPresenter {
     }
 
     public Category getSelectedCategoryObject(int position) {
-        if (position == 0) {
-            return new Category(null, "");
-        } else
-            return categoriesList.get(position - 1);
+        return categoriesList.get(position);
     }
 
-    private String[] getCategoriesNames(Context context, List<Category> categoriesList) {
-        String[] ret = new String[categoriesList.size() + 1];
-        ret[0] = context.getResources().getString(R.string.all_categories_identifier);
+    private String[] getCategoriesNames(List<Category> categoriesList) {
+        String[] ret = new String[categoriesList.size()];
 
-        for (int i = 1; i <= categoriesList.size(); i++) {
-            ret[i] = categoriesList.get(i - 1).getName();
+        for (int i = 0; i < categoriesList.size(); i++) {
+            ret[i] = categoriesList.get(i).getName();
         }
 
         return ret;
+    }
+
+    public void addSpending(float value, String title, Date date, int categoryIndex) {
+        Category category = categoriesList.get(categoryIndex);
+        Spending newSpending = new Spending(null, value, title, date, category.getId());
+        dbProvider.addSpending(newSpending);
+        adapter.notifyDataSetChanged();
     }
 
     private static class CategoriesAdapter extends ArrayAdapter<String> {

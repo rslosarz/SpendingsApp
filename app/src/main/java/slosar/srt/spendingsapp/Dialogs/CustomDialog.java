@@ -14,13 +14,11 @@ public abstract class CustomDialog extends Dialog {
 
     protected Button mButtonOk;
     protected Button mButtonCancel;
-    protected CategoryDialogListener mListener;
 
-    public CustomDialog(Context context, int layoutId, CategoryDialogListener listener) {
+    public CustomDialog(Context context, int layoutId) {
         super(context);
         setContentView(layoutId);
 
-        mListener = listener;
         mButtonOk = (Button) findViewById(R.id.bt_dialog_ok);
         mButtonCancel = (Button) findViewById(R.id.bt_dialog_cancel);
         mButtonOk.setOnClickListener(new View.OnClickListener() {

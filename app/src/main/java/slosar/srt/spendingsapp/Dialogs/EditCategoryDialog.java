@@ -13,9 +13,11 @@ public class EditCategoryDialog extends CustomDialog {
 
     private String oldName;
     private EditText mName;
+    private CategoryDialogListener mListener;
 
     public EditCategoryDialog(Context context, CategoryDialogListener listener, Category item) {
-        super(context, R.layout.dialog_add_category, listener);
+        super(context, R.layout.dialog_edit_category);
+        mListener = listener;
         mName = (EditText) findViewById(R.id.et_name);
         oldName = item.getName();
         mName.setText(oldName);

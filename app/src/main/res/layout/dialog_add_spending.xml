@@ -7,31 +7,42 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_category" />
+        android:text="@string/add_spending" />
 
     <EditText
-        android:id="@+id/et_name"
+        android:id="@+id/et_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/add_category_name" />
+        android:hint="@string/title_hint" />
 
     <EditText
-        android:id="@+id/et_name"
+        android:id="@+id/et_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/add_category_name" />
+        android:hint="@string/hint_value"
+        android:inputType="numberDecimal" />
 
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/add_category_name" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/add_category_name" />
+        <TextView
+            android:id="@+id/et_date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:hint="@string/hint_date"
+            android:inputType="datetime" />
+
+        <Button
+            android:id="@+id/dialogDateInput"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/calendar" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"

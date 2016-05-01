@@ -1,7 +1,6 @@
 package slosar.srt.spendingsapp.Screens.CategoriesView.SpendingsView;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +13,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import slosar.srt.spendingsapp.DbModule.Category;
 import slosar.srt.spendingsapp.DbModule.Spending;
 import slosar.srt.spendingsapp.R;
@@ -23,9 +21,6 @@ public class SpendingsViewFragment extends Fragment implements ISpendingsView, S
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
-
-    @Bind(R.id.fab)
-    FloatingActionButton mFab;
 
     private Category viewedCategory;
     private SpendingsViewPresenter mPresenter;
@@ -46,11 +41,6 @@ public class SpendingsViewFragment extends Fragment implements ISpendingsView, S
         mRecyclerView.setAdapter(mPresenter.getDataAdapter());
 
         return rootView;
-    }
-
-    @OnClick(R.id.fab)
-    public void onAddSpendingClick() {
-
     }
 
     @Override

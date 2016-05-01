@@ -11,9 +11,11 @@ import slosar.srt.spendingsapp.R;
 public class AddCategoryDialog extends CustomDialog {
 
     private EditText mName;
+    private CategoryDialogListener mListener;
 
     public AddCategoryDialog(Context context, CategoryDialogListener listener) {
-        super(context, R.layout.dialog_add_category, listener);
+        super(context, R.layout.dialog_add_category);
+        mListener = listener;
         mName = (EditText) findViewById(R.id.et_name);
     }
 
