@@ -10,7 +10,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import slosar.srt.spendingsapp.Exceptions.CategoryNameEmptyException;
+import slosar.srt.spendingsapp.Exceptions.CategoryNameExistsException;
+import slosar.srt.spendingsapp.Exceptions.DateFieldEmptyException;
+import slosar.srt.spendingsapp.Exceptions.DateFromFutureException;
+import slosar.srt.spendingsapp.Exceptions.ExceptionEvent;
+import slosar.srt.spendingsapp.Exceptions.TitleTooShortException;
+import slosar.srt.spendingsapp.Exceptions.ValueEmptyException;
 import slosar.srt.spendingsapp.R;
 import slosar.srt.spendingsapp.Screens.CategoriesView.CategoriesViewFragment;
 import slosar.srt.spendingsapp.Screens.ManageCategories.ManageCategoriesFragment;
@@ -30,6 +41,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mPresenter = new MainPresenter(this, this);
+        EventBus.getDefault().register(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,29 +83,29 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void pushCategoriesViewFragment() {
-        //   if(isDbEmpty){
-        //       Toast.makeText(this, getResources().getString(R.string.no_categories_defined), Toast.LENGTH_SHORT).show();
-        //   }
-        //   else {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+        if (isDbEmpty) {
+            isDbEmpty = mPresenter.isDbEmpty();
+            Toast.makeText(this, getResources().getString(R.string.no_categories_defined), Toast.LENGTH_SHORT).show();
+        } else {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
 
-        ft.replace(R.id.main_activity_fragment, new CategoriesViewFragment());
-        ft.commit();
-        //   }
+            ft.replace(R.id.main_activity_fragment, new CategoriesViewFragment());
+            ft.commit();
+        }
     }
 
     private void pushStatsViewFragment() {
-        //  if(isDbEmpty){
-        //      Toast.makeText(this, getResources().getString(R.string.no_categories_defined), Toast.LENGTH_SHORT).show();
-        //  }
-        //  else {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+        if (isDbEmpty) {
+            isDbEmpty = mPresenter.isDbEmpty();
+            Toast.makeText(this, getResources().getString(R.string.no_categories_defined), Toast.LENGTH_SHORT).show();
+        } else {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
 
-        ft.replace(R.id.main_activity_fragment, new StatsViewFragment());
-        ft.commit();
-        //  }
+            ft.replace(R.id.main_activity_fragment, new StatsViewFragment());
+            ft.commit();
+        }
     }
 
     private void pushManageCategoriesFragment() {
@@ -114,5 +126,24 @@ public class MainActivity extends AppCompatActivity
     public void showDbEntry() {
         isDbEmpty = false;
         pushCategoriesViewFragment();
+    }
+
+    @Subscribe
+    public void handleException(ExceptionEvent e) {
+        if (e.cause instanceof CategoryNameExistsException) {
+            Toast.makeText(this, getResources().getString(R.string.exception_category_name_exists), Toast.LENGTH_SHORT).show();
+        } else if (e.cause instanceof DateFieldEmptyException) {
+            Toast.makeText(this, getResources().getString(R.string.exception_date_field_empty), Toast.LENGTH_SHORT).show();
+        } else if (e.cause instanceof DateFromFutureException) {
+            Toast.makeText(this, getResources().getString(R.string.exception_date_fom_future), Toast.LENGTH_SHORT).show();
+        } else if (e.cause instanceof TitleTooShortException) {
+            Toast.makeText(this, getResources().getString(R.string.exception_title_too_short), Toast.LENGTH_SHORT).show();
+        } else if (e.cause instanceof CategoryNameEmptyException) {
+            Toast.makeText(this, getResources().getString(R.string.exception_category_name_empty), Toast.LENGTH_SHORT).show();
+        } else if (e.cause instanceof ValueEmptyException) {
+            Toast.makeText(this, getResources().getString(R.string.exception_value_empty), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.exception_other), Toast.LENGTH_SHORT).show();
+        }
     }
 }

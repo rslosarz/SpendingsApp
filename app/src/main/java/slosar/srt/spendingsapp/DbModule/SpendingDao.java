@@ -21,7 +21,6 @@ public class SpendingDao extends AbstractDao<Spending, Long> {
 
     public static final String TABLENAME = "SPENDING";
     private DaoSession daoSession;
-    ;
     private String selectDeep;
 
 

@@ -29,4 +29,11 @@
     <string name="hint_date_through">Date through</string>
     <string name="hint_date_from">Date from</string>
     <string name="spendings_sum">Spendings sum:</string>
+    <string name="exception_category_name_exists">Category name already exists!</string>
+    <string name="exception_date_field_empty">Date field cannot be empty!</string>
+    <string name="exception_date_fom_future">Date from future!</string>
+    <string name="exception_title_too_short">Title is to short!</string>
+    <string name="exception_other">Unexpected exception!</string>
+    <string name="exception_category_name_empty">Category name cannot be empty!</string>
+    <string name="exception_value_empty">Empty value!</string>
 </resources>

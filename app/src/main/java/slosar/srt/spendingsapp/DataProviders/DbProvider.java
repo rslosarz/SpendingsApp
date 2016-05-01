@@ -18,13 +18,11 @@ import slosar.srt.spendingsapp.Exceptions.CategoryNameExistsException;
  * Created by Rafal on 2016-04-23.
  */
 public class DbProvider implements IDbProvider {
-    private Context context;
     private SQLiteDatabase db;
     private DaoMaster daoMaster;
     private DaoSession daoSession;
 
     public DbProvider(Context context) {
-        this.context = context;
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, "spendings-db", null);
         db = helper.getWritableDatabase();
         daoMaster = new DaoMaster(db);

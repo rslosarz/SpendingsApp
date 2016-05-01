@@ -21,8 +21,6 @@ public class CategoryDao extends AbstractDao<Category, Long> {
         super(config);
     }
 
-    ;
-
 
     public CategoryDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);

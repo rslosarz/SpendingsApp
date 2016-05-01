@@ -29,4 +29,9 @@ public class MainPresenter {
             view.showDbEntry();
         }
     }
+
+    public boolean isDbEmpty() {
+        List<Category> categories = dbProvider.getCategoryList();
+        return categories.isEmpty();
+    }
 }

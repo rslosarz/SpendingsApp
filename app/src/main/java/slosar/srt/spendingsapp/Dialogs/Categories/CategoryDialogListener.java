@@ -5,6 +5,4 @@ package slosar.srt.spendingsapp.Dialogs.Categories;
  */
 public interface CategoryDialogListener {
     void addCategory(String categoryName);
-
-    void editCategory(String oldCategoryName, String categoryName);
 }

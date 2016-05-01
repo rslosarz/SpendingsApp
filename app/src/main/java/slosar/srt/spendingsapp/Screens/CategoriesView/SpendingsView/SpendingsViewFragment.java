@@ -21,7 +21,7 @@ import slosar.srt.spendingsapp.Dialogs.Spendings.EditSpendingDialog;
 import slosar.srt.spendingsapp.Dialogs.Spendings.EditSpendingDialogListener;
 import slosar.srt.spendingsapp.R;
 
-public class SpendingsViewFragment extends Fragment implements ISpendingsView, SpendingItemClickListener, EditSpendingDialogListener {
+public class SpendingsViewFragment extends Fragment implements SpendingItemClickListener, EditSpendingDialogListener {
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -38,7 +38,7 @@ public class SpendingsViewFragment extends Fragment implements ISpendingsView, S
 
         viewedCategory = EventBus.getDefault().removeStickyEvent(Category.class);
 
-        mPresenter = new SpendingsViewPresenter(this, this, getActivity(), viewedCategory);
+        mPresenter = new SpendingsViewPresenter(this, getActivity(), viewedCategory);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

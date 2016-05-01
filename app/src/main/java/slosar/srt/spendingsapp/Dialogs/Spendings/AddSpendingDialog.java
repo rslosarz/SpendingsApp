@@ -2,6 +2,7 @@ package slosar.srt.spendingsapp.Dialogs.Spendings;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -10,11 +11,12 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
 import slosar.srt.spendingsapp.Commons.Commons;
+import slosar.srt.spendingsapp.Commons.DecimalDigitsFilter;
+import slosar.srt.spendingsapp.DataProviders.SpendingsDataValidator;
 import slosar.srt.spendingsapp.Dialogs.CustomDialog;
 import slosar.srt.spendingsapp.Exceptions.ExceptionEvent;
 import slosar.srt.spendingsapp.R;
@@ -27,12 +29,12 @@ public class AddSpendingDialog extends CustomDialog {
     private EditText mTitle;
     private EditText mValue;
     private TextView mDate;
-    private Button mButtonDateInput;
     private AddSpendingDialogListener mListener;
     private DatePickerDialog datePickerDialog = null;
     private int mYear;
     private int mMonth;
     private int mDay;
+
     DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -57,7 +59,9 @@ public class AddSpendingDialog extends CustomDialog {
         mTitle = (EditText) findViewById(R.id.et_title);
         mValue = (EditText) findViewById(R.id.et_value);
         mDate = (TextView) findViewById(R.id.et_date);
-        mButtonDateInput = (Button) findViewById(R.id.dialogDateInput);
+        Button mButtonDateInput = (Button) findViewById(R.id.dialogDateInput);
+
+        mValue.setFilters(new InputFilter[]{new DecimalDigitsFilter()});
 
         setDate();
         datePickerDialog = new DatePickerDialog(context, dateSetListener, mYear, mMonth, mDay);
@@ -72,10 +76,11 @@ public class AddSpendingDialog extends CustomDialog {
     @Override
     protected void okAction() {
         try {
-            float value = Float.parseFloat(mValue.getText().toString());
             Date dateGiven = Commons.dateFormat.parse(mDate.getText().toString());
+            SpendingsDataValidator.validate(mValue.getText().toString(), mTitle.getText().toString(), dateGiven);
+            float value = Float.parseFloat(mValue.getText().toString());
             mListener.addSpending(value, mTitle.getText().toString(), dateGiven);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             EventBus.getDefault().postSticky(new ExceptionEvent(e));
         } finally {

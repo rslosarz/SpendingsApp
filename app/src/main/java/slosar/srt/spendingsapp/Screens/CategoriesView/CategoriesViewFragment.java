@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.Spinner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,10 +26,8 @@ import slosar.srt.spendingsapp.Screens.CategoriesView.SpendingsView.SpendingsVie
 /**
  * Created by Rafal on 2016-04-23.
  */
-public class CategoriesViewFragment extends Fragment implements ICategoriesView, AddSpendingDialogListener {
+public class CategoriesViewFragment extends Fragment implements AddSpendingDialogListener {
 
-    @Bind(R.id.bt_add_spending)
-    Button mBtAddSpending;
     @Bind(R.id.spinner)
     Spinner mSpinner;
     private CategoriesViewPresenter presenter;
@@ -53,7 +50,7 @@ public class CategoriesViewFragment extends Fragment implements ICategoriesView,
 
         ButterKnife.bind(this, rootView);
 
-        presenter = new CategoriesViewPresenter(this, getActivity());
+        presenter = new CategoriesViewPresenter(getActivity());
 
         mSpinner.setAdapter(presenter.getCategoriesAdapter());
         mSpinner.setOnItemSelectedListener(spinnerOnItemSelectedListener);

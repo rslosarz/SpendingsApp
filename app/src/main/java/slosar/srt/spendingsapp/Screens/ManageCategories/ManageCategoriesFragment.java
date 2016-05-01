@@ -16,16 +16,14 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import slosar.srt.spendingsapp.DbModule.Category;
 import slosar.srt.spendingsapp.Dialogs.Categories.AddCategoryDialog;
 import slosar.srt.spendingsapp.Dialogs.Categories.CategoryDialogListener;
-import slosar.srt.spendingsapp.Dialogs.Categories.EditCategoryDialog;
 import slosar.srt.spendingsapp.Exceptions.CategoryNameExistsException;
 import slosar.srt.spendingsapp.Exceptions.ExceptionEvent;
 import slosar.srt.spendingsapp.R;
 
 
-public class ManageCategoriesFragment extends Fragment implements IManageCategoriesView, CategoryItemClickListener, CategoryDialogListener {
+public class ManageCategoriesFragment extends Fragment implements CategoryDialogListener {
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -41,7 +39,7 @@ public class ManageCategoriesFragment extends Fragment implements IManageCategor
         View rootView = inflater.inflate(R.layout.fragment_manage_categories, container, false);
 
         ButterKnife.bind(this, rootView);
-        mPresenter = new ManageCategoriesPresenter(this, this, getActivity());
+        mPresenter = new ManageCategoriesPresenter(getActivity());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -56,11 +54,6 @@ public class ManageCategoriesFragment extends Fragment implements IManageCategor
     }
 
     @Override
-    public void onItemClick(Category item) {
-        new EditCategoryDialog(getActivity(), this, item).show();
-    }
-
-    @Override
     public void addCategory(String categoryName) {
         try {
             mPresenter.addCategory(categoryName);
@@ -70,12 +63,6 @@ public class ManageCategoriesFragment extends Fragment implements IManageCategor
             EventBus.getDefault().postSticky(new ExceptionEvent(e));
         }
         Toast.makeText(getActivity(), getResources().getString(R.string.category_added), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void editCategory(String oldCategoryName, String categoryName) {
-        mPresenter.editCategory(oldCategoryName, categoryName);
-        fragmentRedraw();
     }
 
     private void fragmentRedraw() {

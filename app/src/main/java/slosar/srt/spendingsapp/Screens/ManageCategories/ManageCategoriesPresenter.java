@@ -14,27 +14,20 @@ import slosar.srt.spendingsapp.Exceptions.CategoryNameExistsException;
  */
 public class ManageCategoriesPresenter {
 
-    private IManageCategoriesView view;
     private CategoryAdapter adapter;
     private IDbProvider dbProvider;
     private List<Category> categoriesList;
 
-    public ManageCategoriesPresenter(IManageCategoriesView view, CategoryItemClickListener listener, Context context) {
-        this.view = view;
+    public ManageCategoriesPresenter(Context context) {
         dbProvider = new DbProvider(context);
         categoriesList = dbProvider.getCategoryList();
-        adapter = new CategoryAdapter(categoriesList, listener);
+        adapter = new CategoryAdapter(categoriesList, null);
     }
 
     public void addCategory(String categoryName) throws CategoryNameExistsException {
         Category newCategory = new Category(null, categoryName);
         dbProvider.addCategory(newCategory);
         adapter.notifyDataSetChanged();
-    }
-
-    public void editCategory(String oldCategoryName, String categoryName) {
-        //dbProvider.editCategory(newCategory);
-        //adapter.notifyDataSetChanged();
     }
 
     public CategoryAdapter getDataAdapter() {

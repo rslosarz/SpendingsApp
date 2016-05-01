@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import java.util.Date;
 import java.util.List;
@@ -18,15 +17,12 @@ import slosar.srt.spendingsapp.DbModule.Spending;
  * Created by Rafal on 2016-04-24.
  */
 public class CategoriesViewPresenter {
-    private ICategoriesView view;
     private List<Category> categoriesList;
     private CategoriesAdapter adapter;
     private String[] categoriesIdArray;
     private IDbProvider dbProvider;
 
-    public CategoriesViewPresenter(ICategoriesView view, Context context) {
-        this.view = view;
-
+    public CategoriesViewPresenter(Context context) {
         dbProvider = new DbProvider(context);
         categoriesList = dbProvider.getCategoryList();
         categoriesIdArray = getCategoriesNames(categoriesList);
@@ -66,9 +62,7 @@ public class CategoriesViewPresenter {
 
         @Override
         public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            View view = super.getView(position, convertView, parent);
-            TextView text = (TextView) view.findViewById(android.R.id.text1);
-            return view;
+            return super.getView(position, convertView, parent);
         }
     }
 }
