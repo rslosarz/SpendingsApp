@@ -3,6 +3,7 @@ package slosar.srt.spendingsapp.DataProviders;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.Date;
 import java.util.List;
 
 import slosar.srt.spendingsapp.DbModule.Category;
@@ -75,5 +76,18 @@ public class DbProvider implements IDbProvider {
     public void addSpending(Spending spending) {
         SpendingDao spendingDao = getSession().getSpendingDao();
         spendingDao.insert(spending);
+    }
+
+    @Override
+    public void editSpending(Spending spending, float value, String title, Date date) {
+        spending.setTitle(title);
+        spending.setValue(value);
+        spending.setDate(date);
+        spending.update();
+    }
+
+    @Override
+    public void deleteSpending(Spending spending) {
+        spending.delete();
     }
 }

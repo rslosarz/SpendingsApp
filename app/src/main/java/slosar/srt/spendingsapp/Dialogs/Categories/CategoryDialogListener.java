@@ -1,4 +1,4 @@
-package slosar.srt.spendingsapp.Dialogs;
+package slosar.srt.spendingsapp.Dialogs.Categories;
 
 /**
  * Created by Rafal on 2016-04-24.

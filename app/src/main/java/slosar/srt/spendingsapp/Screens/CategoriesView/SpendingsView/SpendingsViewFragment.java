@@ -11,13 +11,17 @@ import android.view.ViewGroup;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Date;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import slosar.srt.spendingsapp.DbModule.Category;
 import slosar.srt.spendingsapp.DbModule.Spending;
+import slosar.srt.spendingsapp.Dialogs.Spendings.EditSpendingDialog;
+import slosar.srt.spendingsapp.Dialogs.Spendings.EditSpendingDialogListener;
 import slosar.srt.spendingsapp.R;
 
-public class SpendingsViewFragment extends Fragment implements ISpendingsView, SpendingItemClickListener {
+public class SpendingsViewFragment extends Fragment implements ISpendingsView, SpendingItemClickListener, EditSpendingDialogListener {
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -45,6 +49,16 @@ public class SpendingsViewFragment extends Fragment implements ISpendingsView, S
 
     @Override
     public void onItemClick(Spending item) {
+        new EditSpendingDialog(getActivity(), this, item).show();
+    }
 
+    @Override
+    public void editSpending(Spending item, float value, String title, Date dateGiven) {
+        mPresenter.editSpending(item, value, title, dateGiven);
+    }
+
+    @Override
+    public void deleteSpending(Spending spending) {
+        mPresenter.deleteSpending(spending);
     }
 }

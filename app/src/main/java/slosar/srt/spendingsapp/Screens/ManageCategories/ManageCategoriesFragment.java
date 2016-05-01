@@ -17,9 +17,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import slosar.srt.spendingsapp.DbModule.Category;
-import slosar.srt.spendingsapp.Dialogs.AddCategoryDialog;
-import slosar.srt.spendingsapp.Dialogs.CategoryDialogListener;
-import slosar.srt.spendingsapp.Dialogs.EditCategoryDialog;
+import slosar.srt.spendingsapp.Dialogs.Categories.AddCategoryDialog;
+import slosar.srt.spendingsapp.Dialogs.Categories.CategoryDialogListener;
+import slosar.srt.spendingsapp.Dialogs.Categories.EditCategoryDialog;
 import slosar.srt.spendingsapp.Exceptions.CategoryNameExistsException;
 import slosar.srt.spendingsapp.Exceptions.ExceptionEvent;
 import slosar.srt.spendingsapp.R;
@@ -75,10 +75,11 @@ public class ManageCategoriesFragment extends Fragment implements IManageCategor
     @Override
     public void editCategory(String oldCategoryName, String categoryName) {
         mPresenter.editCategory(oldCategoryName, categoryName);
+        fragmentRedraw();
     }
 
     private void fragmentRedraw() {
-        //destroy fragment back stack!
+        //remember that this destroys fragment back stack!
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .detach(this)

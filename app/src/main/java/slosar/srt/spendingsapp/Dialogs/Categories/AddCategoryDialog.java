@@ -1,8 +1,10 @@
-package slosar.srt.spendingsapp.Dialogs;
+package slosar.srt.spendingsapp.Dialogs.Categories;
 
 import android.content.Context;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import slosar.srt.spendingsapp.Dialogs.CustomDialog;
 import slosar.srt.spendingsapp.R;
 
 /**
@@ -14,7 +16,9 @@ public class AddCategoryDialog extends CustomDialog {
     private CategoryDialogListener mListener;
 
     public AddCategoryDialog(Context context, CategoryDialogListener listener) {
-        super(context, R.layout.dialog_add_category);
+        super(context, R.layout.dialog_category);
+        TextView info = (TextView) findViewById(R.id.info);
+        info.setText(context.getResources().getString(R.string.add_category));
         mListener = listener;
         mName = (EditText) findViewById(R.id.et_name);
     }

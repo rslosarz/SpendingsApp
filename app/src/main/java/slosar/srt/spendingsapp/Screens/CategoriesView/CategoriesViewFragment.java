@@ -19,15 +19,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import slosar.srt.spendingsapp.DbModule.Category;
-import slosar.srt.spendingsapp.Dialogs.AddSpendingDialog;
-import slosar.srt.spendingsapp.Dialogs.SpendingDialogListener;
+import slosar.srt.spendingsapp.Dialogs.Spendings.AddSpendingDialog;
+import slosar.srt.spendingsapp.Dialogs.Spendings.AddSpendingDialogListener;
 import slosar.srt.spendingsapp.R;
 import slosar.srt.spendingsapp.Screens.CategoriesView.SpendingsView.SpendingsViewFragment;
 
 /**
  * Created by Rafal on 2016-04-23.
  */
-public class CategoriesViewFragment extends Fragment implements ICategoriesView, SpendingDialogListener {
+public class CategoriesViewFragment extends Fragment implements ICategoriesView, AddSpendingDialogListener {
 
     @Bind(R.id.bt_add_spending)
     Button mBtAddSpending;
@@ -84,7 +84,7 @@ public class CategoriesViewFragment extends Fragment implements ICategoriesView,
     }
 
     private void fragmentRedraw() {
-        //destroy fragment back stack!
+        //remember that this destroys fragment back stack!
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .detach(this)

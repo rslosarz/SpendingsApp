@@ -2,6 +2,7 @@ package slosar.srt.spendingsapp.Screens.CategoriesView.SpendingsView;
 
 import android.content.Context;
 
+import java.util.Date;
 import java.util.List;
 
 import slosar.srt.spendingsapp.DataProviders.DbProvider;
@@ -25,12 +26,17 @@ public class SpendingsViewPresenter {
         adapter = new SpendingAdapter(spendingList, listener);
     }
 
-    public void editCategory(String oldCategoryName, String categoryName) {
-        //dbProvider.editCategory(newCategory);
-        //adapter.notifyDataSetChanged();
-    }
-
     public SpendingAdapter getDataAdapter() {
         return adapter;
+    }
+
+    public void editSpending(Spending item, float value, String title, Date dateGiven) {
+        dbProvider.editSpending(item, value, title, dateGiven);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void deleteSpending(Spending spending) {
+        dbProvider.deleteSpending(spending);
+        adapter.notifyDataSetChanged();
     }
 }

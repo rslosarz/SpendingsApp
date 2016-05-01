@@ -1,5 +1,6 @@
 package slosar.srt.spendingsapp.DataProviders;
 
+import java.util.Date;
 import java.util.List;
 
 import slosar.srt.spendingsapp.DbModule.Category;
@@ -20,4 +21,8 @@ public interface IDbProvider {
     void addCategory(Category category) throws CategoryNameExistsException;
 
     void addSpending(Spending spending);
+
+    void editSpending(Spending item, float value, String title, Date dateGiven);
+
+    void deleteSpending(Spending spending);
 }

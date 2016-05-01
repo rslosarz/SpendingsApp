@@ -24,4 +24,6 @@
     <string name="title_hint">Input spending title</string>
     <string name="hint_value">Input spending value</string>
     <string name="hint_date">Input date</string>
+    <string name="edit_spending">Edit spending</string>
+    <string name="delete_text">Delete</string>
 </resources>
