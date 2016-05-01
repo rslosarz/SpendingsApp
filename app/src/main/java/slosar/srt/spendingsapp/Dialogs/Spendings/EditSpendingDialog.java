@@ -35,12 +35,18 @@ public class EditSpendingDialog extends CustomDialog {
     private int mYear;
     private int mMonth;
     private int mDay;
+
     DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             mYear = year;
             mMonth = monthOfYear;
             mDay = dayOfMonth;
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(mYear, mMonth, mDay);
+            Date newDate = calendar.getTime();
+            mDate.setText(Commons.dateFormat.format(newDate));
 
             datePickerDialog.dismiss();
         }
@@ -109,7 +115,5 @@ public class EditSpendingDialog extends CustomDialog {
         mYear = calendar.get(Calendar.YEAR);
         mMonth = calendar.get(Calendar.MONTH);
         mDay = calendar.get(Calendar.DAY_OF_MONTH);
-        mHour = calendar.get(Calendar.HOUR_OF_DAY);
-        mMinutes = calendar.get(Calendar.MINUTE);
     }
 }

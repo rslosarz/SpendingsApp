@@ -90,4 +90,17 @@ public class DbProvider implements IDbProvider {
     public void deleteSpending(Spending spending) {
         spending.delete();
     }
+
+    @Override
+    public float getSum(Date dateFrom, Date dateThrough) {
+        float sum = 0;
+        SpendingDao spendingDao = getSession().getSpendingDao();
+        List<Spending> list = spendingDao.queryBuilder()
+                .where(SpendingDao.Properties.Date.between(dateFrom, dateThrough))
+                .list();
+        for (Spending spending : list) {
+            sum += spending.getValue();
+        }
+        return sum;
+    }
 }

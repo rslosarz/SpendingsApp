@@ -26,4 +26,7 @@
     <string name="hint_date">Input date</string>
     <string name="edit_spending">Edit spending</string>
     <string name="delete_text">Delete</string>
+    <string name="hint_date_through">Date through</string>
+    <string name="hint_date_from">Date from</string>
+    <string name="spendings_sum">Spendings sum:</string>
 </resources>

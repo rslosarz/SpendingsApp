@@ -40,6 +40,11 @@ public class AddSpendingDialog extends CustomDialog {
             mMonth = monthOfYear;
             mDay = dayOfMonth;
 
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(mYear, mMonth, mDay);
+            Date newDate = calendar.getTime();
+            mDate.setText(Commons.dateFormat.format(newDate));
+
             datePickerDialog.dismiss();
         }
     };

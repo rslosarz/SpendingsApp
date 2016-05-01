@@ -25,4 +25,6 @@ public interface IDbProvider {
     void editSpending(Spending item, float value, String title, Date dateGiven);
 
     void deleteSpending(Spending spending);
+
+    float getSum(Date dateFrom, Date dateThrough);
 }
